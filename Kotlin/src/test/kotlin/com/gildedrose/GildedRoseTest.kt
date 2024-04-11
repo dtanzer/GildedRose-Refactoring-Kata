@@ -1,9 +1,11 @@
 package com.gildedrose
 
+import com.gildedrose.automation.TestAutomation
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GildedRoseTest {
+    val spec = TestAutomation()
 
     @Test
     fun foo() {
