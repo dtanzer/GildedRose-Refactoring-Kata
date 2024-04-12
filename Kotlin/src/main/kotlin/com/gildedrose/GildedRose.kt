@@ -8,11 +8,15 @@ class GildedRose(var items: List<Item>) {
 
             if (item.name == "Sulfuras, Hand of Ragnaros") {
                 updateSulfuras(item)
-                return
+                continue
             }
             if (item.name == "Aged Brie") {
                 updateAgedBrie(item)
-                return
+                continue
+            }
+            if(item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                updateBackstagePasses(item)
+                continue
             }
 
             if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert") {
@@ -63,6 +67,21 @@ class GildedRose(var items: List<Item>) {
                 }
             }
         }
+    }
+
+	private fun updateBackstagePasses(backstagePasses: Item) {
+        if (backstagePasses.sellIn <= 0) {
+            backstagePasses.quality = 0
+        } else if (backstagePasses.sellIn < 6) {
+            backstagePasses.quality = (backstagePasses.quality + 3).coerceAtMost(50)
+        } else if (backstagePasses.sellIn < 11) {
+            backstagePasses.quality = (backstagePasses.quality + 2).coerceAtMost(50)
+        } else {
+            backstagePasses.quality = (backstagePasses.quality + 1).coerceAtMost(50)
+        }
+
+        backstagePasses.sellIn = backstagePasses.sellIn - 1
+
     }
 
 	private fun updateAgedBrie(agedBrie: Item) {
