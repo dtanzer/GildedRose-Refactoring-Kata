@@ -10,9 +10,20 @@ class GildedRose(var items: List<Item>) {
                 "Sulfuras, Hand of Ragnaros" -> updateSulfuras(item)
                 "Aged Brie" -> updateAgedBrie(item)
                 "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePasses(item)
+                "Conjured Mana Cake" -> updateConjured(item)
                 else -> updateOtherItem(item)
             }
         }
+    }
+
+	private fun updateConjured(item: Item) {
+        if (item.sellIn <= 0) {
+            item.quality = (item.quality - 4).coerceAtLeast(0)
+        } else {
+            item.quality = (item.quality - 2).coerceAtLeast(0)
+        }
+        
+        item.sellIn = item.sellIn - 1
     }
 
 	private fun updateOtherItem(item: Item) {

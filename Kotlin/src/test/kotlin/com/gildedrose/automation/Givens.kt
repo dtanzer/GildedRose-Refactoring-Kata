@@ -26,7 +26,16 @@ class Elixir(sellIn: Int = Elixir.sellIn, quality: Int = Elixir.quality) : TestI
 	companion object {
 		val `quality degradation before sell-in` = -1
 		val `quality degradation after sell-in` = -2
-val sellIn = 2
+		val sellIn = 2
+		val quality = 20
+	}
+}
+
+class Conjured(sellIn: Int = Conjured.sellIn, quality: Int = Conjured.quality) : TestItem(Item("Conjured Mana Cake", sellIn, quality)) {
+	companion object {
+		val `quality degradation before sell-in` = -2
+		val `quality degradation after sell-in` = -4
+		val sellIn = 2
 		val quality = 20
 	}
 }
