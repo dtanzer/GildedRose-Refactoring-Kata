@@ -22,9 +22,11 @@ open class TestItem(val item: Item) {
 	}
 }
 
-class Elixir(sellIn: Int = Elixir.sellIn) : TestItem(Item("Elixir of the Mongoose", sellIn, quality)) {
+class Elixir(sellIn: Int = Elixir.sellIn, quality: Int = Elixir.quality) : TestItem(Item("Elixir of the Mongoose", sellIn, quality)) {
 	companion object {
-		val sellIn = 2
+		val `quality degradation before sell-in` = -1
+		val `quality degradation after sell-in` = -2
+val sellIn = 2
 		val quality = 20
 	}
 }
