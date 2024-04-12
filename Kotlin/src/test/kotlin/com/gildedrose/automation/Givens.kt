@@ -41,3 +41,21 @@ class AgedBrie(sellIn: Int = AgedBrie.sellIn, quality: Int = AgedBrie.quality) :
 		val quality = 20
 	}
 }
+
+class BackstagePasses(sellIn: Int = BackstagePasses.sellIn, quality: Int = BackstagePasses.quality) : TestItem(Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality)) {
+	companion object {
+		val `quality change with more than 10 days left` = 1
+		val `quality change with less than 10 days left` = 2
+		val `quality change with less than 5 days left` = 3
+		val sellIn = 2
+		val quality = 20
+	}
+}
+
+infix fun Int.`updated by`(value: Int): Int {
+	return this+value
+}
+
+infix fun Int.after(waitTime: TimeUnit): Int {
+	return this*waitTime.days
+}
