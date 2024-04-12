@@ -17,52 +17,58 @@ class GildedRose(var items: List<Item>) {
     }
 
 	private fun updateConjured(item: Item) {
-        if (item.sellIn <= 0) {
-            item.quality = (item.quality - 4).coerceAtLeast(0)
-        } else {
-            item.quality = (item.quality - 2).coerceAtLeast(0)
-        }
-        
-        item.sellIn = item.sellIn - 1
+        degradeQuality(item, 2, 4)
+        updateSellIn(item)
     }
 
 	private fun updateOtherItem(item: Item) {
-        if (item.sellIn <= 0) {
-            item.quality = (item.quality - 2).coerceAtLeast(0)
-        } else {
-            item.quality = (item.quality - 1).coerceAtLeast(0)
-        }
-        
-        item.sellIn = item.sellIn - 1
+        degradeQuality(item, 1, 2)
+        updateSellIn(item)
     }
 
 	private fun updateBackstagePasses(backstagePasses: Item) {
         if (backstagePasses.sellIn <= 0) {
             backstagePasses.quality = 0
         } else if (backstagePasses.sellIn < 6) {
-            backstagePasses.quality = (backstagePasses.quality + 3).coerceAtMost(50)
+            increaseQuality(backstagePasses, 3)
         } else if (backstagePasses.sellIn < 11) {
-            backstagePasses.quality = (backstagePasses.quality + 2).coerceAtMost(50)
+            increaseQuality(backstagePasses, 2)
         } else {
-            backstagePasses.quality = (backstagePasses.quality + 1).coerceAtMost(50)
+            increaseQuality(backstagePasses, 1)
         }
 
-        backstagePasses.sellIn = backstagePasses.sellIn - 1
+        updateSellIn(backstagePasses)
     }
 
 	private fun updateAgedBrie(agedBrie: Item) {
-        agedBrie.sellIn = agedBrie.sellIn - 1
-    
-        if (agedBrie.sellIn < 0) {
-            agedBrie.quality = (agedBrie.quality + 2).coerceAtMost(50)
+        if (agedBrie.sellIn <= 0) {
+            increaseQuality(agedBrie, 2)
         } else {
-            agedBrie.quality = (agedBrie.quality + 1).coerceAtMost(50)
+            increaseQuality(agedBrie, 1)
         }
+
+        updateSellIn(agedBrie)
     }
+
+	private fun increaseQuality(item: Item, qualityIncrease: Int) {
+		item.quality = (item.quality + qualityIncrease).coerceAtMost(50)
+	}
 
 	private fun updateSulfuras(sulfuras: Item) {
         //Nothing to be done here
 	}
+
+    private fun updateSellIn(item: Item) {
+        item.sellIn = item.sellIn - 1
+    }
+    
+    private fun degradeQuality(item: Item, beforeSellIn: Int, afterSellIn: Int) {
+        if (item.sellIn <= 0) {
+            item.quality = (item.quality - afterSellIn).coerceAtLeast(0)
+        } else {
+            item.quality = (item.quality - beforeSellIn).coerceAtLeast(0)
+        }
+    }
 
 }
 
