@@ -5,7 +5,11 @@ class GildedRose(var items: List<Item>) {
     fun updateQuality() {
         for (i in items.indices) {
             if (items[i].name == "Sulfuras, Hand of Ragnaros") {
-                updateSulfuras()
+                updateSulfuras(items[i])
+                return
+            }
+            if (items[i].name == "Aged Brie") {
+                updateAgedBrie(items[i])
                 return
             }
 
@@ -59,7 +63,17 @@ class GildedRose(var items: List<Item>) {
         }
     }
 
-	private fun updateSulfuras() {
+	private fun updateAgedBrie(agedBrie: Item) {
+        agedBrie.sellIn = agedBrie.sellIn - 1
+    
+        if (agedBrie.sellIn < 0) {
+            agedBrie.quality = (agedBrie.quality + 2).coerceAtMost(50)
+        } else {
+            agedBrie.quality = (agedBrie.quality + 1).coerceAtMost(50)
+        }
+    }
+
+	private fun updateSulfuras(sulfuras: Item) {
         //Nothing to be done here
 	}
 
