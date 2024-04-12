@@ -1,5 +1,5 @@
 package com.gildedrose.automation
 
-class Thens {
+class Thens(val items: List<TestItem>) {
 
 }
