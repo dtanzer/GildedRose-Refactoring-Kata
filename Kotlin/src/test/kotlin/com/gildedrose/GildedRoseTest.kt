@@ -10,7 +10,7 @@ internal class GildedRoseTest {
     val spec = TestAutomation()
 
     @Test
-    fun `elixir degrades in quality before sell-in`() {
+    fun `elixir updates sell-in after one day`() {
         spec.`given` {
             `items on sale`(
                 Elixir(2)

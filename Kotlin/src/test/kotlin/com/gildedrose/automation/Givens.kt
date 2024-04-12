@@ -34,3 +34,10 @@ class Sulfuras(sellIn: Int) : TestItem(Item("Sulfuras, Hand of Ragnaros", sellIn
 		val quality = 80
 	}
 }
+
+class AgedBrie(sellIn: Int = AgedBrie.sellIn, quality: Int = AgedBrie.quality) : TestItem(Item("Aged Brie", sellIn, quality)) {
+	companion object {
+		val sellIn = 2
+		val quality = 20
+	}
+}
