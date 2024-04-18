@@ -8,18 +8,31 @@ internal class GildedRoseTest {
 
 	@Test
 	fun `quality of sulfuras does not degrade over time`() {
-		var app: GildedRose? = null
-
 		spec.`given` {
-			val items = listOf(Item("Sulfuras, Hand of Ragnaros", 20, 80))
-			app = GildedRose(items)
+			`items on sale`(Sulfuras())
 		}.`when` {
-			app!!.updateQuality()
+			items `have been in stock for` 2.days()
 		}.`then` {
-			assertEquals(80, app!!.items[0].quality)
+			items[0] `has quality` 80
 		}
 	}
 
+	@Test
+	fun `quality of backstage passes increases before sell-in`() {
+		spec.`given` {
+			`items on sale`(
+				BackstagePasses(20, 20),
+				BackstagePasses(10, 20),
+				BackstagePasses(5, 20),
+			)
+		}.`when` {
+			items `have been in stock for` 2.days()
+		}.`then` {
+			items[0] `has quality` (20 `updated by` BackstagePasses.`quality change with more than 10 days left`.after(2.days()))
+			items[1] `has quality` (20 `updated by` BackstagePasses.`quality change with less than 10 days left`.after(2.days()))
+			items[2] `has quality` (20 `updated by` BackstagePasses.`quality change with less than 5 days left`.after(2.days()))
+		}
+	}
 }
 
 
